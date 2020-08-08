@@ -14,3 +14,9 @@ server.use(bodyParser.json());
 
 // * support encoded bodies
 server.use(bodyParser.urlencoded({ extended: true })); 
+
+
+// * server listens on port 8080 locally
+server.listen(8080, () => {
+	console.log('server started on port 8080')
+})
