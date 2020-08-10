@@ -22,15 +22,19 @@ router.get('/api/posts', (req, res) => {
 router.get('/api/posts/:id', (req, res) => {
     const id = req.params.id
     
-    database.findById(id)
+    const post = database.findById(id)
         .then((response) => {
             res.status(200).json(response)
         })
         .catch((error) => {
-            console.log(error)
-            res.status(401).json({ message: 'error on the promise response'})
-
+            res.status(401).json({ message: error})
         })
+        
+    // if (post) {
+    //     res.status(200).json(post)
+    // } else {
+    //     res.status(404).json({ message: 'post not found' })
+    // }
 
 })
 
@@ -90,14 +94,17 @@ router.put('/api/posts/:id', (req, res) => {
         database.update(id, req.body)
             .then((response) => {
                 console.log(response)
-
-                
+                res.status(200).json({ message: 'post updated successfully'})
+                res.end()
             })
+            .catch((error) => {
+                console.log(error)
+                res.status(500).json({ message: error })
+            })
+    } else {
+        res.status(401).json({ message: 'post unavailable or does not exist'})
     }
-
-
 })
-
 
 
 // * create new post @ /api/posts
