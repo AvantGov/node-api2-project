@@ -82,7 +82,21 @@ router.delete('/api/posts/:id', (req, res) => {
 
 
 // * updates post by id @ /api/posts/:id
+router.put('/api/posts/:id', (req, res) => {
+    const id = req.params.id
+    const post = database.findById(id)
 
+    if (post) {
+        database.update(id, req.body)
+            .then((response) => {
+                console.log(response)
+
+                
+            })
+    }
+
+
+})
 
 
 
